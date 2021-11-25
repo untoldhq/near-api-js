@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { promisify as _promisify } from 'util';
+import { promisify as _promisify } from 'es6-promisify';
 
 import { KeyPair } from '../utils/key_pair';
 import { KeyStore } from './keystore';
