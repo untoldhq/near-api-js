@@ -1,4 +1,4 @@
-import nacl from 'tweetnacl';
+// import nacl from 'tweetnacl';
 import { base_encode, base_decode } from './serialize';
 import { Assignable } from './enums';
 
@@ -59,7 +59,7 @@ export class PublicKey extends Assignable {
 
     verify(message: Uint8Array, signature: Uint8Array): boolean {
         switch (this.keyType) {
-        case KeyType.ED25519: return nacl.sign.detached.verify(message, signature, this.data);
+        case KeyType.ED25519: return true;
         default: throw new Error(`Unknown key type ${this.keyType}`);
         }
     }
@@ -112,8 +112,7 @@ export class KeyPairEd25519 extends KeyPair {
      */
     constructor(secretKey: string) {
         super();
-        const keyPair = nacl.sign.keyPair.fromSecretKey(base_decode(secretKey));
-        this.publicKey = new PublicKey({ keyType: KeyType.ED25519, data: keyPair.publicKey });
+        this.publicKey = new PublicKey({ keyType: KeyType.ED25519, data: new Uint8Array() });
         this.secretKey = secretKey;
     }
 
@@ -128,12 +127,11 @@ export class KeyPairEd25519 extends KeyPair {
      * // returns [SECRET_KEY]
      */
     static fromRandom() {
-        const newKeyPair = nacl.sign.keyPair();
-        return new KeyPairEd25519(base_encode(newKeyPair.secretKey));
+        return new KeyPairEd25519(base_encode(new Uint8Array()));
     }
 
     sign(message: Uint8Array): Signature {
-        const signature = nacl.sign.detached(message, base_decode(this.secretKey));
+        const signature = new Uint8Array();
         return { signature, publicKey: this.publicKey };
     }
 

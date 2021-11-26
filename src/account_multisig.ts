@@ -1,10 +1,8 @@
 'use strict';
 
 import BN from 'bn.js';
-import depd from 'depd';
 import { Account, SignAndSendTransactionOptions } from './account';
 import { Connection } from './connection';
-import { parseNearAmount } from './utils/format';
 import { PublicKey } from './utils/key_pair';
 import { Action, addKey, deleteKey, deployContract, functionCall, functionCallAccessKey } from './transaction';
 import { FinalExecutionOutcome } from './providers';
@@ -12,7 +10,7 @@ import { fetchJson } from './utils/web';
 import { FunctionCallPermissionView } from './providers/provider';
 
 export const MULTISIG_STORAGE_KEY = '__multisigRequest';
-export const MULTISIG_ALLOWANCE = new BN(parseNearAmount('1'));
+export const MULTISIG_ALLOWANCE = new BN('1');
 // TODO: Different gas value for different requests (can reduce gas usage dramatically)
 export const MULTISIG_GAS = new BN('100000000000000');
 export const MULTISIG_DEPOSIT = new BN('0');
@@ -183,8 +181,6 @@ export class Account2FA extends AccountMultisig {
     signAndSendTransaction(receiverId: string, actions: Action[]): Promise<FinalExecutionOutcome>
     async signAndSendTransaction(...args: any): Promise<FinalExecutionOutcome> {
         if(typeof args[0] === 'string') {
-            const deprecate = depd('Account.signAndSendTransaction(receiverId, actions');
-            deprecate('use `Account2FA.signAndSendTransaction(SignAndSendTransactionOptions)` instead');
             return this.__signAndSendTransaction({ receiverId: args[0], actions: args[1] });
         } else {
             return this.__signAndSendTransaction(args[0]);

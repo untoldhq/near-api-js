@@ -5,7 +5,6 @@
  *
  * @module walletAccount
  */
-import depd from 'depd';
 import { Account } from './account';
 import { SCHEMA, createTransaction } from './transaction';
 import { KeyPair, PublicKey } from './utils';
@@ -84,8 +83,6 @@ export class WalletConnection {
     async requestSignIn(contractIdOrOptions = {}, title, successUrl, failureUrl) {
         let options;
         if (typeof contractIdOrOptions === 'string') {
-            const deprecate = depd('requestSignIn(contractId, title)');
-            deprecate('`title` ignored; use `requestSignIn({ contractId, methodNames, successUrl, failureUrl })` instead');
             options = { contractId: contractIdOrOptions, successUrl, failureUrl };
         }
         else {
@@ -113,8 +110,6 @@ export class WalletConnection {
     }
     async requestSignTransactions(...args) {
         if (Array.isArray(args[0])) {
-            const deprecate = depd('WalletConnection.requestSignTransactions(transactions, callbackUrl, meta)');
-            deprecate('use `WalletConnection.requestSignTransactions(RequestSignTransactionsOptions)` instead');
             return this._requestSignTransactions({
                 transactions: args[0],
                 callbackUrl: args[1],

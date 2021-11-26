@@ -1,5 +1,4 @@
 import BN from 'bn.js';
-import depd from 'depd';
 import { transfer, createAccount, signTransaction, deployContract, addKey, functionCall, fullAccessKey, functionCallAccessKey, deleteKey, stake, deleteAccount, stringifyJsonOrBytes } from './transaction';
 import { TypedError, ErrorContext } from './providers';
 import { baseDecode, baseEncode } from 'borsh';
@@ -36,13 +35,9 @@ export class Account {
     }
     /** @hidden */
     get ready() {
-        const deprecate = depd('Account.ready()');
-        deprecate('not needed anymore, always ready');
         return Promise.resolve();
     }
     async fetchState() {
-        const deprecate = depd('Account.fetchState()');
-        deprecate('use `Account.state()` instead');
     }
     /**
      * Returns basic NEAR account information via the `view_account` RPC query method
@@ -101,8 +96,6 @@ export class Account {
         }
     }
     signAndSendTransactionV1(receiverId, actions) {
-        const deprecate = depd('Account.signAndSendTransaction(receiverId, actions');
-        deprecate('use `Account.signAndSendTransaction(SignAndSendTransactionOptions)` instead');
         return this.signAndSendTransactionV2({ receiverId, actions });
     }
     async signAndSendTransactionV2({ receiverId, actions, returnError }) {
@@ -265,8 +258,6 @@ export class Account {
         }
     }
     functionCallV1(contractId, methodName, args, gas, amount) {
-        const deprecate = depd('Account.functionCall(contractId, methodName, args, gas, amount)');
-        deprecate('use `Account.functionCall(FunctionCallOptions)` instead');
         args = args || {};
         this.validateArgs(args);
         return this.signAndSendTransaction({

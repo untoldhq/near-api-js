@@ -1,8 +1,8 @@
-cat >lib/package.json <<!EOF
-{
-    "type": "commonjs"
-}
-!EOF
+#cat >lib/package.json <<!EOF
+#{
+#    "type": "commonjs"
+#}
+#!EOF
 
 cat >esm/package.json <<!EOF
 {

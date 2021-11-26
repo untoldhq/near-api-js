@@ -1,5 +1,6 @@
-/** @ignore @module */
-export * as keyStores from './key_stores/index';
+/** @hidden @module */
+export * as keyStores from './key_stores/browser-index';
 export * from './common-index';
-export * from './connect';
-export * from './constants';
+export * from './browser-connect';
+
+import 'error-polyfill';

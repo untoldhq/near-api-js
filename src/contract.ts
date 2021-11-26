@@ -1,5 +1,4 @@
 import BN from 'bn.js';
-import depd from 'depd';
 import { Account } from './account';
 import { getTransactionLastResult } from './providers';
 import { PositionalArgsError, ArgumentTypeError } from './utils/errors';
@@ -113,8 +112,6 @@ export class Contract {
                     }
 
                     if(args.length > 1 || !(args[0] && args[0].args)) {
-                        const deprecate = depd('contract.methodName(args, gas, amount)');
-                        deprecate('use `contract.methodName({ args, gas?, amount?, callbackUrl?, meta? })` instead');
                         return this._changeMethod({
                             methodName,
                             args: args[0],

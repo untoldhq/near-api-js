@@ -1,5 +1,4 @@
 import BN from 'bn.js';
-import depd from 'depd';
 import {
     transfer,
     createAccount,
@@ -129,8 +128,6 @@ export class Account {
 
     /** @hidden */
     protected get ready(): Promise<void> {
-        const deprecate = depd('Account.ready()');
-        deprecate('not needed anymore, always ready');
         return Promise.resolve();
     }
 
@@ -140,8 +137,6 @@ export class Account {
     }
 
     async fetchState(): Promise<void> {
-        const deprecate = depd('Account.fetchState()');
-        deprecate('use `Account.state()` instead');
     }
 
     /**
@@ -223,8 +218,6 @@ export class Account {
     }
 
     private signAndSendTransactionV1(receiverId: string, actions: Action[]): Promise<FinalExecutionOutcome> {
-        const deprecate = depd('Account.signAndSendTransaction(receiverId, actions');
-        deprecate('use `Account.signAndSendTransaction(SignAndSendTransactionOptions)` instead');
         return this.signAndSendTransactionV2({ receiverId, actions });
     }
 
@@ -417,8 +410,6 @@ export class Account {
     }
 
     private functionCallV1(contractId: string, methodName: string, args: any, gas?: BN, amount?: BN): Promise<FinalExecutionOutcome> {
-        const deprecate = depd('Account.functionCall(contractId, methodName, args, gas, amount)');
-        deprecate('use `Account.functionCall(FunctionCallOptions)` instead');
 
         args = args || {};
         this.validateArgs(args);

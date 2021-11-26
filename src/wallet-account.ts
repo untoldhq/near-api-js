@@ -5,7 +5,6 @@
  * 
  * @module walletAccount
  */
-import depd from 'depd';
 import { Account, SignAndSendTransactionOptions } from './account';
 import { Near } from './near';
 import { KeyStore } from './key_stores';
@@ -140,8 +139,6 @@ export class WalletConnection {
     ) {
         let options: SignInOptions;
         if (typeof contractIdOrOptions === 'string') {
-            const deprecate = depd('requestSignIn(contractId, title)');
-            deprecate('`title` ignored; use `requestSignIn({ contractId, methodNames, successUrl, failureUrl })` instead');
             options = { contractId: contractIdOrOptions, successUrl, failureUrl };
         } else {
             options = contractIdOrOptions as SignInOptions;
@@ -185,8 +182,6 @@ export class WalletConnection {
 
     async requestSignTransactions(...args: any[]) {
         if(Array.isArray(args[0])) {
-            const deprecate = depd('WalletConnection.requestSignTransactions(transactions, callbackUrl, meta)');
-            deprecate('use `WalletConnection.requestSignTransactions(RequestSignTransactionsOptions)` instead');
             return this._requestSignTransactions({
                 transactions: args[0],
                 callbackUrl: args[1],

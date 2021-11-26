@@ -1,4 +1,3 @@
-import sha256 from 'js-sha256';
 import BN from 'bn.js';
 
 import { Enum, Assignable } from './utils/enums';
@@ -228,7 +227,7 @@ export function createTransaction(signerId: string, publicKey: PublicKey, receiv
  */
 async function signTransactionObject(transaction: Transaction, signer: Signer, accountId?: string, networkId?: string): Promise<[Uint8Array, SignedTransaction]> {
     const message = serialize(SCHEMA, transaction);
-    const hash = new Uint8Array(sha256.sha256.array(message));
+    const hash = new Uint8Array();
     const signature = await signer.signMessage(message, accountId, networkId);
     const signedTx = new SignedTransaction({
         transaction,

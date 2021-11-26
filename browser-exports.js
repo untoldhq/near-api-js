@@ -1,2 +1,2 @@
-window.nearApi = require('./lib/browser-index');
+window.nearApi = require('./esm/browser-index');
 window.Buffer = Buffer;

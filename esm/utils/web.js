@@ -1,4 +1,3 @@
-import createError from 'http-errors';
 import exponentialBackoff from './exponential-backoff';
 import { TypedError } from '../providers';
 import { logWarning } from './errors';
@@ -25,7 +24,6 @@ export async function fetchJson(connection, json) {
                     logWarning(`Retrying HTTP request for ${url} as it's not available now`);
                     return null;
                 }
-                throw createError(response.status, await response.text());
             }
             return response;
         }

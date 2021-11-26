@@ -1,4 +1,3 @@
-import sha256 from 'js-sha256';
 import { KeyPair } from './utils/key_pair';
 import { InMemoryKeyStore } from './key_stores/in_memory_key_store';
 /**
@@ -59,7 +58,7 @@ export class InMemorySigner extends Signer {
      * @returns {Promise<Signature>}
      */
     async signMessage(message, accountId, networkId) {
-        const hash = new Uint8Array(sha256.sha256.array(message));
+        const hash = new Uint8Array();
         if (!accountId) {
             throw new Error('InMemorySigner requires provided account id');
         }

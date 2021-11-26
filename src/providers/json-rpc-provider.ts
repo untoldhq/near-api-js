@@ -3,7 +3,6 @@
  * which can be used to interact with the NEAR RPC API.
  * @see {@link providers/provider} for a list of request and response types
  */
-import depd from 'depd';
 import {
     AccessKeyWithPublicKey,
     Provider,
@@ -160,8 +159,6 @@ export class JsonRpcProvider extends Provider {
         let { blockId } = blockQuery as any;
 
         if (typeof blockQuery !== 'object') {
-            const deprecate = depd('JsonRpcProvider.block(blockId)');
-            deprecate('use `block({ blockId })` or `block({ finality })` instead');
             blockId = blockQuery;
         }
         return this.sendJsonRpc('block', { block_id: blockId, finality });
@@ -204,8 +201,6 @@ export class JsonRpcProvider extends Provider {
      * @see {@link https://docs.near.org/docs/develop/front-end/rpc#genesis-config}
      */
     async experimental_genesisConfig(): Promise<NearProtocolConfig> {
-        const deprecate = depd('JsonRpcProvider.experimental_protocolConfig()');
-        deprecate('use `experimental_protocolConfig({ sync_checkpoint: \'genesis\' })` to fetch the up-to-date or genesis protocol config explicitly');
         return await this.sendJsonRpc('EXPERIMENTAL_protocol_config', { sync_checkpoint: 'genesis' });
     }
 
@@ -223,8 +218,6 @@ export class JsonRpcProvider extends Provider {
      * @deprecated Use {@link lightClientProof} instead
      */
     async experimental_lightClientProof(request: LightClientProofRequest): Promise<LightClientProof> {
-        const deprecate = depd('JsonRpcProvider.experimental_lightClientProof(request)');
-        deprecate('use `lightClientProof` instead');
         return await this.lightClientProof(request);
     }
 

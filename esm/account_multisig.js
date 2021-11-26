@@ -1,13 +1,11 @@
 'use strict';
 import BN from 'bn.js';
-import depd from 'depd';
 import { Account } from './account';
-import { parseNearAmount } from './utils/format';
 import { PublicKey } from './utils/key_pair';
 import { addKey, deleteKey, deployContract, functionCall, functionCallAccessKey } from './transaction';
 import { fetchJson } from './utils/web';
 export const MULTISIG_STORAGE_KEY = '__multisigRequest';
-export const MULTISIG_ALLOWANCE = new BN(parseNearAmount('1'));
+export const MULTISIG_ALLOWANCE = new BN('1');
 // TODO: Different gas value for different requests (can reduce gas usage dramatically)
 export const MULTISIG_GAS = new BN('100000000000000');
 export const MULTISIG_DEPOSIT = new BN('0');
@@ -128,8 +126,6 @@ export class Account2FA extends AccountMultisig {
     }
     async signAndSendTransaction(...args) {
         if (typeof args[0] === 'string') {
-            const deprecate = depd('Account.signAndSendTransaction(receiverId, actions');
-            deprecate('use `Account2FA.signAndSendTransaction(SignAndSendTransactionOptions)` instead');
             return this.__signAndSendTransaction({ receiverId: args[0], actions: args[1] });
         }
         else {

@@ -1,4 +1,3 @@
-import sha256 from 'js-sha256';
 import { Enum, Assignable } from './utils/enums';
 import { serialize, deserialize } from 'borsh';
 import { PublicKey } from './utils/key_pair';
@@ -182,7 +181,7 @@ export function createTransaction(signerId, publicKey, receiverId, nonce, action
  */
 async function signTransactionObject(transaction, signer, accountId, networkId) {
     const message = serialize(SCHEMA, transaction);
-    const hash = new Uint8Array(sha256.sha256.array(message));
+    const hash = new Uint8Array();
     const signature = await signer.signMessage(message, accountId, networkId);
     const signedTx = new SignedTransaction({
         transaction,

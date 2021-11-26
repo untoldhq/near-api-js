@@ -1,11 +1,8 @@
 import Mustache from 'mustache';
 import schema from '../generated/rpc_error_schema.json';
 import messages from '../res/error_messages.json';
-import { utils } from '../common-index';
 import { TypedError } from '../utils/errors';
-const mustacheHelpers = {
-    formatNear: () => (n, render) => utils.format.formatNearAmount(render(n))
-};
+const mustacheHelpers = {};
 export class ServerError extends TypedError {
 }
 class ServerTransactionError extends ServerError {
