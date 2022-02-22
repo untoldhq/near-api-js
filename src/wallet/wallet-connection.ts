@@ -5,30 +5,29 @@ import { FinalExecutionOutcome } from '../providers';
 import { Wallet } from './interface';
 
 export class WalletConnection {
-    /** @hidden */
-    _wallet: Wallet;
+    wallet: Wallet;
 
     /** @hidden */
     _near: Near;
 
     /**
     * @param {Near} _near Near object
-    * @param {Walle} _wallet Wallet object
+    * @param {Walle} wallet Wallet object
     */
     constructor(near: Near, wallet: Wallet) {
         this._near = near;
-        this._wallet = wallet;
+        this.wallet = wallet;
     }
 
     /**
     * Returns the current connected wallet account
     */
     public account(): Account {
-        if (this._wallet.isSignedIn()) {
+        if (this.wallet.isSignedIn()) {
             return new ConnectedWalletAccount(
                 this,
                 this._near.connection,
-                this._wallet.getAccountId()
+                this.wallet.getAccountId()
             );
         }
         console.warn("Can not create account object, user is not signed in");
@@ -52,7 +51,7 @@ export class ConnectedWalletAccount extends Account {
      * function from wallet instead of standard implementation
      */
     async signAndSendTransaction(options: SignAndSendTransactionOptions): Promise<FinalExecutionOutcome> {
-        this._walletConnection._wallet.requestSignTransaction(options);
+        this._walletConnection.wallet.requestSignTransaction(options);
         // TODO: refactor to return result (use callbacks?)
         return null;
     }
